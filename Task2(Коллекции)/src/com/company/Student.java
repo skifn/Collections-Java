@@ -1,43 +1,59 @@
 package com.company;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import static com.company.Main.*;
 
 public class Student implements Comparable <Student> {
 
    String name;
-   int course;
+   int age;
    int average_score;
 
-
-
-
     //Конструктор
-    public Student(String name, int course, int average_score) {
+    public Student(String name, int age, int average_score) {
         this.name = name;
-        this.course = course;
+        this.age = age;
         this.average_score = average_score;
     }
 
-    //Считываем фамилии и средний балл в конструктор
+    //Считываем фамилии, возраст и средний балл в конструктор и создаем коллекцию TreeMap
     public static void get(TreeMap <Student, Integer> map) {
         String str;
-        int course;
+        int age;
         int average;
         while(true) {
             str = in.nextLine(); //Читаем строку
             if(str.equals("stop")) //Если слово стоп видим - заканчиваем чтение
                 break;
-
             //Если слово не stop, то
            else
-                course = count.nextInt();
+                age = count.nextInt();
                 average = digit.nextInt();
 
-               map.put(new Student(str, course, average), average); //Отправляем в TreeMap
+                //Ключом является средний балл
+               map.put(new Student(str, age, average), average); //Отправляем в TreeMap
+        }
+
+
+    }
+
+    //Считываем фамилии, возраст и средний балл в конструктор и создаем коллекцию Set
+    public static void get(HashSet<Student> set) {
+        String str;
+        int age;
+        int average;
+        while(true) {
+            str = in.nextLine(); //Читаем строку
+            if(str.equals("stop")) //Если слово стоп видим - заканчиваем чтение
+                break;
+                //Если слово не stop, то
+            else
+                age = count.nextInt();
+            average = digit.nextInt();
+
+            //Закидываем в set
+            set.add(new Student(str, age, average)); //Отправляем в Set
         }
 
 
@@ -45,7 +61,7 @@ public class Student implements Comparable <Student> {
 
     //Делаем корректный вывод
     public String toString(){
-        return "Студент " + this.getName() + " учится на курсе: " + this.getCourse() + " | Средний балл: ";
+        return "Студент " + this.getName() + " Возраст: " + this.getAge() + " | Средний балл: " + this.getAverage() + "| ";
     }
 
     //Вывод TreeMap
@@ -61,19 +77,46 @@ public class Student implements Comparable <Student> {
 
     }
 
+    //Вывод HashSet
+    public static void display(HashSet<Student> set) {
+
+
+        for (Student student : set) {
+            System.out.println(student);
+        }
+
+
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return String.valueOf(age).equals(String.valueOf(student.age));
+    }
+
+    @Override
+    public int hashCode() {
+        return String.valueOf(age).hashCode();
+    }
+
 
     //Сравниваем средний балл
     @Override
     public int compareTo(Student o) {
-        return this.getAverage() - o.getAverage();
+                return this.getAverage() - o.getAverage();
     }
 
-    //Геттеры для переопределения toString
-    private int getAverage() {
+    //Геттеры
+    public int getAverage() {
         return average_score;
     }
-    private String getName() { return name;}
-    private int getCourse() { return course;}
+    public String getName() { return name;}
+    public int getAge() { return age;}
+
+
 
 
 }
