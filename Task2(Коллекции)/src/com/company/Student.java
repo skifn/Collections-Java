@@ -22,6 +22,7 @@ public class Student implements Comparable <Student> {
         String str;
         int age;
         int average;
+        int id = 0;
         while(true) {
             str = in.nextLine(); //Читаем строку
             if(str.equals("stop")) //Если слово стоп видим - заканчиваем чтение
@@ -30,9 +31,10 @@ public class Student implements Comparable <Student> {
            else
                 age = count.nextInt();
                 average = digit.nextInt();
+                id++;
 
                 //Ключом является средний балл
-               map.put(new Student(str, age, average), average); //Отправляем в TreeMap
+               map.put(new Student(str, age, average), id); //Отправляем в TreeMap
         }
 
 
@@ -106,7 +108,12 @@ public class Student implements Comparable <Student> {
     //Сравниваем средний балл
     @Override
     public int compareTo(Student o) {
-                return this.getAverage() - o.getAverage();
+
+        if(this.getAverage() > o.getAverage()){
+            return 1;
+        } else {
+            return -1;
+        }
     }
 
     //Геттеры

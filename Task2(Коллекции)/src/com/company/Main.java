@@ -66,6 +66,7 @@ public class Main {
                     task_2.test_deleting(source2);
                 }
                 case 3 -> {
+                    System.out.println("\nВведите студентов\n");
                     Student.get(source_3);
                     System.out.println("\nСортировка по среднему баллу:\n");
                     Student.display(source_3);
